@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="ebdb@staging" uuid="eb49a875-4d41-4166-8e90-bfa812c86e34">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://aa1e1cjlcyi36s5.ci7bif7gh2xh.eu-central-1.rds.amazonaws.com:5432/ebdb</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="ebdb@localhost" uuid="3b2aa635-8809-4074-b802-9b386bdbb68f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/ebdb</jdbc-url>
+    </data-source>
+  </component>
+</project>
