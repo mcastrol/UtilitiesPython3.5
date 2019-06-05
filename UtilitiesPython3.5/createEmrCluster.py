@@ -74,7 +74,6 @@ try:
 except Exception as e:
     print(e)
     print("create cluster fails")
-
 # response = client.run_job_flow(
 #     Name='string',
 #     LogUri='string',

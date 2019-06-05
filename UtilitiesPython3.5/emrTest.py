@@ -6,74 +6,17 @@ client = boto3.client('emr', region_name='eu-central-1')
 # get list of ec2 instances
 
 try:
-    jobName='Portfolio Import'
-    logUri='s3n://aws-logs-987912402824-eu-central-1/elasticmapreduce/'
-    releaseLabel='emr-5.4.0'
-    instances={
-        'Ec2KeyName': 'aws_eb',
-        'Ec2SubnetId': 'subnet-4e19f035',
-        'EmrManagedMasterSecurityGroup': 'sg-1eeef376',
-        'EmrManagedSlaveSecurityGroup': 'sg-1feef377',
-        'KeepJobFlowAliveWhenNoSteps': True,
-        'TerminationProtected': False,
-        'InstanceGroups': [
-            {
-                'InstanceCount':1,
-                'EbsConfiguration':
-                    {
-                        'EbsBlockDeviceConfigs':[
-                            {
-                                'VolumeSpecification':
-                                    {
-                                        'SizeInGB':32,
-                                        'VolumeType':"gp2"
-                                    },
-                                'VolumesPerInstance':1
-                            }
-                        ]
-                    },
-                'InstanceRole': 'MASTER',
-                'InstanceType':'m4.large',
-                'Name':'Master Instance Group'}
-        ]
-    }
+    jobFlowIds =  ['j-1LHL6JP6RG4YQ']
 
-    configurations=[
-        {
-            'Classification': 'spark-env',
-            'Properties':{},
-            'Configurations': [
-                {
-                    "Classification":"export",
-                    "Properties":
-                        {
-                            "SSM_ENV":"staging"
-                        },
-                    "Configurations":[]
-                }
-            ]
-        }
-    ]
-    applications=[{'Name': 'Hadoop'}, {'Name': 'Spark'}]
-    serviceRole='ssmemr'
-    jobFlowRole='ssmemrec2'
-
-    response = client.run_job_flow(
-        Name = jobName,
-        LogUri = logUri,
-        ReleaseLabel = releaseLabel,
-        Instances = instances,
-        Configurations = configurations,
-        Applications = applications,
-        ServiceRole = serviceRole,
-        EbsRootVolumeSize=10,
-        JobFlowRole=jobFlowRole
+    response = client.terminate_job_flows(
+        JobFlowIds = jobFlowIds
     )
 
     print(response)
+
 except Exception as e:
     print(e)
-    print("create cluster fails")
+    print("Termination of cluster fails"
 
 # response = client.run_job_flow(
 #     Name='string',
@@ -309,3 +252,27 @@ except Exception as e:
 #         'ADDomainJoinPassword': 'string'
 #     }
 # )
+#     import boto3
+#
+#
+# def list_active_clusters(emr_client):
+#     # clusters = emr_client.list_clusters(ClusterStates=['STARTING', 'BOOTSTRAPPING', 'RUNNING', 'WAITING'])
+#     clusters = emr_client.list_clusters()
+#     cluster_ids = [c["Id"] for c in clusters["Clusters"]]
+#     return cluster_ids
+#
+#
+# def lambda_handler(event, context):
+#     client = boto3.client('emr', region_name='eu-central-1')
+#
+#     active_cluster_ids = list_active_clusters(client)
+#     print(active_cluster_ids)
+#
+#     try:
+#
+#         response = client.terminate_job_flows(JobFlowIds =  ['j-17PCZIP7UVGVN'])
+#
+#         print(response)
+#     except Exception as e:
+#         print(e)
+#         print("set_visible_to_all_users failed")
